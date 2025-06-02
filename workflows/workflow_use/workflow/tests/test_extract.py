@@ -1,15 +1,13 @@
 import asyncio
 from pathlib import Path
 
-# Ensure langchain-openai is installed and OPENAI_API_KEY is set
-from langchain_openai import ChatOpenAI
 from pydantic import BaseModel
 
+from workflow_use.config import create_llm_pair
 from workflow_use.workflow.service import Workflow
 
-# Instantiate the LLM and the service directly
-llm_instance = ChatOpenAI(model='gpt-4o')  # Or your preferred model
-page_extraction_llm = ChatOpenAI(model='gpt-4o-mini')
+# Instantiate the LLM and the service using configuration
+llm_instance, page_extraction_llm = create_llm_pair()
 
 
 class OutputModel(BaseModel):

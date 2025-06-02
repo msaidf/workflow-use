@@ -1,13 +1,11 @@
 import asyncio
 from pathlib import Path
 
-# Ensure langchain-openai is installed and OPENAI_API_KEY is set
-from langchain_openai import ChatOpenAI
-
 from workflow_use.builder.service import BuilderService
+from workflow_use.config import create_llm_pair
 
-# Instantiate the LLM and the service directly
-llm_instance = ChatOpenAI(model='gpt-4o')  # Or your preferred model
+# Instantiate the LLM and the service using configuration
+llm_instance, _ = create_llm_pair()
 builder_service = BuilderService(llm=llm_instance)
 
 

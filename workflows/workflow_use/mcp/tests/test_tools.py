@@ -1,17 +1,16 @@
-from langchain_openai import ChatOpenAI
-
+from workflow_use.config import create_llm_pair
 from workflow_use.mcp.service import get_mcp_server
 
 # async def main():
 if __name__ == '__main__':
-	llm_instance = ChatOpenAI(model='gpt-4o', temperature=0)
+	llm_instance, page_extraction_llm = create_llm_pair()
 
 	print('[FastMCP Server] Starting MCP server...')
 	# This will run the FastMCP server, typically using stdio transport by default.
 	# For CLI execution like `fastmcp run workflow_use.mcp.server:mcp_app`,
 	# this __main__ block might be bypassed by FastMCP's runner,
 	# but it's good practice for direct Python execution.
-	mcp = get_mcp_server(llm_instance, workflow_dir='./tmp')
+	mcp = get_mcp_server(llm_instance, page_extraction_llm=page_extraction_llm, workflow_dir='./tmp')
 	mcp.run(
 		transport='sse',
 		host='0.0.0.0',
